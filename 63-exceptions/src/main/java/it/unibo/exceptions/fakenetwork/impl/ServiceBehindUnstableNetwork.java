@@ -1,5 +1,6 @@
 package it.unibo.exceptions.fakenetwork.impl;
 
+import it.unibo.exceptions.NetworkException;
 import it.unibo.exceptions.arithmetic.ArithmeticService;
 import it.unibo.exceptions.fakenetwork.api.NetworkComponent;
 
@@ -59,8 +60,8 @@ public final class ServiceBehindUnstableNetwork implements NetworkComponent {
             commandQueue.add(data);
         } else {
             final var message = data + " is not a valid keyword (allowed: " + KEYWORDS + "), nor is a number";
-            System.out.println(message);
-            commandQueue.clear();
+            commandQueue.clear();            
+            throw new NetworkException(message);
             /*
              * This method, in this point, should throw an IllegalStateException.
              * Its cause, however, is the previous NumberFormatException.
