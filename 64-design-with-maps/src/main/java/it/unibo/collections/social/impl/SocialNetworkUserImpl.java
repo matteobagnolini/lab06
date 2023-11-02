@@ -6,11 +6,10 @@ package it.unibo.collections.social.impl;
 import it.unibo.collections.social.api.SocialNetworkUser;
 import it.unibo.collections.social.api.User;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -37,6 +36,8 @@ public final class SocialNetworkUserImpl<U extends User> extends UserImpl implem
      * a generic-type Map:  think of what type of keys and values would best suit the requirements
      */
 
+     private Map<String, Set<U>> followedInGroup;
+
     /*
      * [CONSTRUCTORS]
      *
@@ -62,7 +63,8 @@ public final class SocialNetworkUserImpl<U extends User> extends UserImpl implem
      *            application
      */
     public SocialNetworkUserImpl(final String name, final String surname, final String user, final int userAge) {
-        super(null, null, null, 0);
+        super(name, surname, user, userAge);
+        this.followedInGroup = new HashMap<>();
     }
 
     /*
@@ -76,7 +78,14 @@ public final class SocialNetworkUserImpl<U extends User> extends UserImpl implem
      */
     @Override
     public boolean addFollowedUser(final String circle, final U user) {
-        return false;
+        if (this.followedInGroup.containsKey(circle)) {
+            return this.followedInGroup.get(circle).add(user);
+        } else {
+            Set<U> newCircleSet = new HashSet<>();
+            newCircleSet.add(user); 
+            this.followedInGroup.put(circle, newCircleSet);
+            return true;
+        }    
     }
 
     /**
@@ -86,11 +95,15 @@ public final class SocialNetworkUserImpl<U extends User> extends UserImpl implem
      */
     @Override
     public Collection<U> getFollowedUsersInGroup(final String groupName) {
-        return null;
+        return new HashSet<U>(this.followedInGroup.get(groupName));
     }
 
     @Override
     public List<U> getFollowedUsers() {
-        return null;
+        Set<U> totalFollowed = new HashSet<>();
+        for (Set<U> set : this.followedInGroup.values()) {
+            totalFollowed.addAll(set);
+        }
+        return new LinkedList<U>(totalFollowed);
     }
 }
