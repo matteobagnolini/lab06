@@ -2,8 +2,10 @@ package it.unibo.generics.graph.impl;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 
 import it.unibo.generics.graph.api.Graph;
@@ -13,6 +15,7 @@ public class GraphImpl implements Graph<String> {
     Map<String, Set<String>> graph = new HashMap<>();
     
     public GraphImpl () {
+
     }
 
 
@@ -43,6 +46,25 @@ public class GraphImpl implements Graph<String> {
 
     @Override
     public List<String> getPath(String source, String target) {
+        
+        return null;
+    }
+
+    private List<String> BFS (String source, String target) {
+        List<String> queue = new LinkedList<>();
+        Set<String> visited = new HashSet<>();
+        queue.add(source);
+        visited.add(source);
+
+        while (queue.size() != 0) {
+            String v = queue.get(queue.size()-1);
+            for (String w : this.graph.get(v)) {
+                if (!visited.contains(w)) {
+                    queue.add(w);
+                    visited.add(w);
+                }
+            }
+        }
 
         return null;
     }
