@@ -95,7 +95,12 @@ public final class SocialNetworkUserImpl<U extends User> extends UserImpl implem
      */
     @Override
     public Collection<U> getFollowedUsersInGroup(final String groupName) {
-        return new HashSet<U>(this.followedInGroup.get(groupName));
+        Set<U> followedGroup = new HashSet<>();
+        if (this.followedInGroup.containsKey(groupName)) {
+            followedGroup.addAll(this.followedInGroup.get(groupName));
+            return followedGroup;
+        }
+        return followedGroup;
     }
 
     @Override
