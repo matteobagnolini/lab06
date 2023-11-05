@@ -2,11 +2,12 @@ package it.unibo.generics.graph.impl;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 import java.util.Set;
+
+import it.unibo.generics.path.api.PathSearching;
+import it.unibo.generics.path.impl.FrontierAlgorithm;
 
 import it.unibo.generics.graph.api.Graph;
 
@@ -46,7 +47,7 @@ public class GraphImpl implements Graph<String> {
 
     @Override
     public List<String> getPath(String source, String target) {
-        
-        return null;
+        PathSearching<String> BFS = new FrontierAlgorithm();
+        return BFS.searchingAlgortithm(this, source, target);
     }    
 }
