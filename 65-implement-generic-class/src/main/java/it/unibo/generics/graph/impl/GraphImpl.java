@@ -14,9 +14,10 @@ import it.unibo.generics.graph.api.Graph;
 public class GraphImpl<N> implements Graph<N> {
 
     private final Map<N, Set<N>> graph = new HashMap<>();
+    private final PathSearching<N> algorithm;
     
-    public GraphImpl () {
-
+    public GraphImpl (final PathSearching<N> algorithm) {
+        this.algorithm = algorithm;
     }
 
 
@@ -47,7 +48,6 @@ public class GraphImpl<N> implements Graph<N> {
 
     @Override
     public List<N> getPath(N source, N target) {
-        PathSearching<N> BFS = new FrontierAlgorithm<N>();
-        return BFS.searchingAlgortithm(this, source, target);
+        return this.algorithm.searchingAlgortithm(this, source, target);
     }    
 }
