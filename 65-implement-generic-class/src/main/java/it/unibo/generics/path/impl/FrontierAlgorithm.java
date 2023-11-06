@@ -11,24 +11,24 @@ import it.unibo.generics.graph.api.Graph;
 
 import it.unibo.generics.path.api.PathSearching;
 
-public class FrontierAlgorithm implements PathSearching<String> {
+public class FrontierAlgorithm<N> implements PathSearching<N> {
 
-    Set<String> discovered = new HashSet<>();
+    Set<N> discovered = new HashSet<>();
 
     @Override
-    public List<String> searchingAlgortithm(Graph<String> graph, String start, String end) {
-        Graph<String> parents = new GraphImpl();
-        List<String> queue = new LinkedList<>();
+    public List<N> searchingAlgortithm(Graph<N> graph, N start, N end) {
+        Graph<N> parents = new GraphImpl<>();
+        List<N> queue = new LinkedList<>();
         queue.add(start);
         discovered.add(start);
 
         while(queue.size() != 0) {
-            String node = queue.get(queue.size() - 1);
+            N node = queue.get(queue.size() - 1);
             queue.remove(queue.size() - 1);
-            if (node.compareTo(end) == 0) {
+            if (node.equals(end)) { //node.compareTo(end) == 0
                 return backtrace(parents, start, end);
             }
-            for (String adjacent : graph.linkedNodes(node)) {
+            for (N adjacent : graph.linkedNodes(node)) {
                 if (!queue.contains(node) && !discovered.contains(adjacent)) {
                     parents.addNode(node);
                     parents.addNode(adjacent);
@@ -41,12 +41,12 @@ public class FrontierAlgorithm implements PathSearching<String> {
         return null;
     }
 
-    private List<String> backtrace (Graph<String> parents, String start, String end) {
-        List<String> path = new LinkedList<>();
+    private List<N> backtrace (Graph<N> parents, N start, N end) {
+        List<N> path = new LinkedList<>();
         path.add(end);
-        while(path.get(path.size() - 1).compareTo(start) != 0) {
-            Set<String> parent = parents.linkedNodes(path.get(path.size() - 1));
-            for (String parentNode : parent) {
+        while(!path.get(path.size() - 1).equals(start)) {
+            Set<N> parent = parents.linkedNodes(path.get(path.size() - 1));
+            for (N parentNode : parent) {
                 path.add(parentNode);
             }
         }
@@ -54,8 +54,8 @@ public class FrontierAlgorithm implements PathSearching<String> {
             return this.reverseString(path);
     }
 
-    private List<String> reverseString (List<String> list) {
-        List<String> reversedList = new LinkedList<String>();
+    private List<N> reverseString (List<N> list) {
+        List<N> reversedList = new LinkedList<N>();
         for (int i = 0; i < list.size(); i++) {
             reversedList.add(list.get(list.size() - 1 - i));
         }

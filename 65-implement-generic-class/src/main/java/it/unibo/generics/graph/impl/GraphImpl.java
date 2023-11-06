@@ -11,9 +11,9 @@ import it.unibo.generics.path.impl.FrontierAlgorithm;
 
 import it.unibo.generics.graph.api.Graph;
 
-public class GraphImpl implements Graph<String> {
+public class GraphImpl<N> implements Graph<N> {
 
-    Map<String, Set<String>> graph = new HashMap<>();
+    private final Map<N, Set<N>> graph = new HashMap<>();
     
     public GraphImpl () {
 
@@ -21,33 +21,33 @@ public class GraphImpl implements Graph<String> {
 
 
     @Override
-    public void addNode(String node) {
+    public void addNode(final N node) {
         if (!this.graph.containsKey(node)) {
-            Set<String> connectedTo = new HashSet<>();
+            Set<N> connectedTo = new HashSet<>();
             this.graph.put(node, connectedTo);
         }
     }
 
     @Override
-    public void addEdge(String source, String target) {
+    public void addEdge(final N source, final N target) {
         if (this.graph.containsKey(source)) {
             this.graph.get(source).add(target);
         }
     }
 
     @Override
-    public Set<String> nodeSet() {
+    public Set<N> nodeSet() {
         return this.graph.keySet();
     }
 
     @Override
-    public Set<String> linkedNodes(String node) {
+    public Set<N> linkedNodes(N node) {
         return this.graph.get(node);
     }
 
     @Override
-    public List<String> getPath(String source, String target) {
-        PathSearching<String> BFS = new FrontierAlgorithm();
+    public List<N> getPath(N source, N target) {
+        PathSearching<N> BFS = new FrontierAlgorithm<N>();
         return BFS.searchingAlgortithm(this, source, target);
     }    
 }
