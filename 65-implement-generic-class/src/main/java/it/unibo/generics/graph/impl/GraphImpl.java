@@ -20,6 +20,10 @@ public class GraphImpl<N> implements Graph<N> {
         this.algorithm = algorithm;
     }
 
+    public GraphImpl () {
+        this(new FrontierAlgorithm<>());
+    }
+
 
     @Override
     public void addNode(final N node) {
