@@ -10,7 +10,7 @@ import it.unibo.generics.graph.api.Graph;
 
 import it.unibo.generics.path.api.PathSearching;
 
-public class FrontierAlgorithm<N> implements PathSearching<N> {
+public class BreadthFirstSearch<N> implements PathSearching<N> {
 
     Set<N> discovered = new HashSet<>();
 
