@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import it.unibo.generics.path.api.PathSearching;
-import it.unibo.generics.path.impl.FrontierAlgorithm;
+import it.unibo.generics.path.impl.BreadthFirstSearch;
 
 import it.unibo.generics.graph.api.Graph;
 
@@ -21,7 +21,7 @@ public class GraphImpl<N> implements Graph<N> {
     }
 
     public GraphImpl () {
-        this(new FrontierAlgorithm<>());
+        this(new BreadthFirstSearch<>());
     }
 
 

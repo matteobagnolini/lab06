@@ -1,6 +1,5 @@
 package it.unibo.generics.path.impl;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
